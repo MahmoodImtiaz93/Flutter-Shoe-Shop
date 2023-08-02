@@ -46,30 +46,42 @@ class _HomeViewState extends State<HomeView> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
-                    child: Stack(children: [
-                      Positioned(
-                        left: 4,
-                        child: FadeAnimation(
-                          delay: 1,
-                          child: Container(
-                            width: msize.width / 13,
-                            height: msize.height / 10,
-                            color: Colors.red,
-                            child: RotatedBox(
-                              quarterTurns: -1,
-                              child: Center(
-                                child: FadeAnimation(
-                                    delay: 1.5,
-                                    child: Text(
-                                      "New",
-                                      style: AppThemes.homeGridNewText,
-                                    )),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 4,
+                          child: FadeAnimation(
+                            delay: 1,
+                            child: Container(
+                              width: msize.width / 13,
+                              height: msize.height / 10,
+                              color: Colors.red,
+                              child: RotatedBox(
+                                quarterTurns: -1,
+                                child: Center(
+                                  child: FadeAnimation(
+                                      delay: 1.5,
+                                      child: Text(
+                                        "New",
+                                        style: AppThemes.homeGridNewText,
+                                      )),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      )
-                    ]),
+                        Positioned(
+                          right: 5,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: AppConstantsColor.darkTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

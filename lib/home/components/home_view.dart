@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
@@ -28,167 +29,186 @@ class _HomeViewState extends State<HomeView> {
           children: [
             _categoryView(msize),
             SizedBox(height: msize.height * 0.01),
-            _mainShoeListView(msize)
+            _mainShoeListView(msize),
+            _moreTextandIcon()
           ],
         ),
       ),
     );
   }
 
+  Padding _moreTextandIcon() {
+    return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "More",
+                  style: AppThemes.homeMoreText,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      CupertinoIcons.arrow_right,
+                      size: 27,
+                    ))
+              ],
+            ),
+          );
+  }
+
+//Main Shoes ListView
   Row _mainShoeListView(Size msize) {
     return Row(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: msize.width * 0.02),
-                width: msize.width / 16,
-                height: msize.height / 2.4,
-                child: RotatedBox(
-                  quarterTurns: -1,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: featured.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndexOfFeatured = index;
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: msize.width * 0.04),
-                          child: Text(
-                            featured[index],
-                            style: TextStyle(
-                                fontSize: selectedIndexOfFeatured == index
-                                    ? 21
-                                    : 18,
-                                color: selectedIndexOfFeatured == index
-                                    ? AppConstantsColor.darkTextColor
-                                    : AppConstantsColor.unSelectedTextColor,
-                                fontWeight: selectedIndexOfFeatured == index
-                                    ? FontWeight.w500
-                                    : FontWeight.w400),
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: msize.width * 0.02),
+          width: msize.width / 16,
+          height: msize.height / 2.4,
+          child: RotatedBox(
+            quarterTurns: -1,
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: featured.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndexOfFeatured = index;
+                    });
+                  },
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: msize.width * 0.04),
+                    child: Text(
+                      featured[index],
+                      style: TextStyle(
+                          fontSize: selectedIndexOfFeatured == index ? 21 : 18,
+                          color: selectedIndexOfFeatured == index
+                              ? AppConstantsColor.darkTextColor
+                              : AppConstantsColor.unSelectedTextColor,
+                          fontWeight: selectedIndexOfFeatured == index
+                              ? FontWeight.w500
+                              : FontWeight.w400),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        Container(
+          width: msize.width * 0.89,
+          height: msize.height * 0.4,
+          child: ListView.builder(
+            itemCount: availableShoes.length,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              ShoeModel model = availableShoes[index];
+              return GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: msize.height * 0.01,
+                      vertical: msize.width * 0.01),
+                  width: msize.width / 1.5,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: msize.width / 1.81,
+                        decoration: BoxDecoration(
+                            color: model.modelColor,
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                      Positioned(
+                        left: 10,
+                        child: FadeAnimation(
+                          delay: 1,
+                          child: Row(
+                            children: [
+                              Text(
+                                model.name,
+                                style: AppThemes.homeProductName,
+                              ),
+                              SizedBox(
+                                width: msize.width * 0.3,
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                width: msize.width * 0.89,
-                height: msize.height * 0.4,
-                child: ListView.builder(
-                  itemCount: availableShoes.length,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    ShoeModel model = availableShoes[index];
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: msize.height * 0.01,
-                            vertical: msize.width * 0.01),
-                        width: msize.width / 1.5,
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: msize.width / 1.81,
-                              decoration: BoxDecoration(
-                                  color: model.modelColor,
-                                  borderRadius: BorderRadius.circular(30)),
-                            ),
-                            Positioned(
-                              left: 10,
-                              child: FadeAnimation(
-                                delay: 1,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      model.name,
-                                      style: AppThemes.homeProductName,
-                                    ),
-                                    SizedBox(
-                                      width: msize.width * 0.3,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 40,
-                              left: 10,
-                              child: FadeAnimation(
-                                delay: 1.5,
-                                child: Text(
-                                  model.model,
-                                  style: AppThemes.homeProductModel,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 70,
-                              left: 10,
-                              child: FadeAnimation(
-                                delay: 2,
-                                child: Text(
-                                  "\$${model.price.toStringAsFixed(2)}",
-                                  style: AppThemes.homeProductModel,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 50,
-                              right: 10,
-                              child: FadeAnimation(
-                                delay: 2,
-                                child: Hero(
-                                  tag: model.imgAddress,
-                                  child: RotationTransition(
-                                    turns: const AlwaysStoppedAnimation(
-                                        -30 / 360),
-                                    child: SizedBox(
-                                      width: 250,
-                                      height: 230,
-                                      child: Image(
-                                          image:
-                                              AssetImage(model.imgAddress)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 10,
-                              left: 170,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.circleRight,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      Positioned(
+                        top: 40,
+                        left: 10,
+                        child: FadeAnimation(
+                          delay: 1.5,
+                          child: Text(
+                            model.model,
+                            style: AppThemes.homeProductModel,
+                          ),
                         ),
                       ),
-                    );
-                  },
+                      Positioned(
+                        top: 70,
+                        left: 10,
+                        child: FadeAnimation(
+                          delay: 2,
+                          child: Text(
+                            "\$${model.price.toStringAsFixed(2)}",
+                            style: AppThemes.homeProductModel,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 50,
+                        right: 10,
+                        child: FadeAnimation(
+                          delay: 2,
+                          child: Hero(
+                            tag: model.imgAddress,
+                            child: RotationTransition(
+                              turns: const AlwaysStoppedAnimation(-30 / 360),
+                              child: SizedBox(
+                                width: 250,
+                                height: 230,
+                                child:
+                                    Image(image: AssetImage(model.imgAddress)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        left: 170,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const FaIcon(
+                            FontAwesomeIcons.circleRight,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
-          );
+              );
+            },
+          ),
+        )
+      ],
+    );
   }
 
   Widget _categoryView(Size msize) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/data/dummy_data.dart';
 import 'package:shoe_app/home/components/home_appBar.dart';
 import 'package:shoe_app/model/models.dart';
@@ -93,23 +94,26 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               Positioned(
                                 left: 10,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      model.name,
-                                      style: AppThemes.homeProductName,
-                                    ),
-                                    SizedBox(
-                                      width: msize.width * 0.3,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.white,
+                                child: FadeAnimation(
+                                  delay: 1,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        model.name,
+                                        style: AppThemes.homeProductName,
                                       ),
-                                    )
-                                  ],
+                                      SizedBox(
+                                        width: msize.width * 0.3,
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

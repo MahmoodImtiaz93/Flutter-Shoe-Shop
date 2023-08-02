@@ -30,7 +30,50 @@ class _HomeViewState extends State<HomeView> {
             _categoryView(msize),
             SizedBox(height: msize.height * 0.01),
             _mainShoeListView(msize),
-            _moreTextandIcon()
+            _moreTextandIcon(),
+            Container(
+              width: msize.width,
+              height: msize.height * 0.25,
+              color: Colors.red,
+              child: ListView.builder(
+                itemCount: availableShoes.length,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    width: msize.width * 0.5,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: Stack(children: [
+                      Positioned(
+                        left: 4,
+                        child: FadeAnimation(
+                          delay: 1,
+                          child: Container(
+                            width: msize.width / 13,
+                            height: msize.height / 10,
+                            color: Colors.red,
+                            child: RotatedBox(
+                              quarterTurns: -1,
+                              child: Center(
+                                child: FadeAnimation(
+                                    delay: 1.5,
+                                    child: Text(
+                                      "New",
+                                      style: AppThemes.homeGridNewText,
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -39,23 +82,23 @@ class _HomeViewState extends State<HomeView> {
 
   Padding _moreTextandIcon() {
     return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "More",
-                  style: AppThemes.homeMoreText,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.arrow_right,
-                      size: 27,
-                    ))
-              ],
-            ),
-          );
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "More",
+            style: AppThemes.homeMoreText,
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                CupertinoIcons.arrow_right,
+                size: 27,
+              ))
+        ],
+      ),
+    );
   }
 
 //Main Shoes ListView

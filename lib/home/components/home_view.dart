@@ -54,7 +54,10 @@ class _HomeViewState extends State<HomeView> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const DetailsView(),
+                    builder: (context) => DetailsView(
+                      isComeFromMoreSection: true,
+                      model: model,
+                    ),
                   ));
             },
             child: Container(
@@ -219,7 +222,10 @@ class _HomeViewState extends State<HomeView> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const DetailsView(),
+                        builder: (context) => DetailsView(
+                          isComeFromMoreSection: false,
+                          model: model,
+                        ),
                       ));
                 },
                 child: Container(

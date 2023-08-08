@@ -7,26 +7,30 @@ class DetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          'Nike',
-          style: AppThemes.detailsAppBar,
-        ),
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
-          color: AppConstantsColor.darkTextColor,
-        ),
-        actions: [
-          IconButton(
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: AppConstantsColor.backgroundColor,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          title: Text(
+            'Nike',
+            style: AppThemes.detailsAppBar,
+          ),
+          leading: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.favorite_border),
-          )
-        ],
+            icon: const Icon(Icons.arrow_back),
+            color: AppConstantsColor.darkTextColor,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_border),
+            )
+          ],
+        ),
       ),
     );
   }

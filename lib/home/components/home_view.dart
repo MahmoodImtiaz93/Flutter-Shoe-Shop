@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/data/dummy_data.dart';
+import 'package:shoe_app/details/components/details_view.dart';
 import 'package:shoe_app/home/components/home_appBar.dart';
 import 'package:shoe_app/model/models.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
@@ -24,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
     return Center(
       child: Scaffold(
         backgroundColor: AppConstantsColor.backgroundColor,
-        appBar: HomeAppBar(),
+        appBar: const HomeAppBar(),
         body: Column(
           children: [
             _categoryView(msize),
@@ -40,98 +41,106 @@ class _HomeViewState extends State<HomeView> {
 
   SizedBox _bottomSlideCategory(Size msize) {
     return SizedBox(
-            width: msize.width,
-            height: msize.height * 0.25,
-            child: ListView.builder(
-              itemCount: availableShoes.length,
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                ShoeModel model = availableShoes[index];
-                return Container(
-                  margin: const EdgeInsets.all(10),
-                  width: msize.width * 0.5,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: 4,
-                        child: FadeAnimation(
-                          delay: 1,
-                          child: Container(
-                            width: msize.width / 13,
-                            height: msize.height / 10,
-                            color: Colors.red,
-                            child: RotatedBox(
-                              quarterTurns: -1,
-                              child: Center(
-                                child: FadeAnimation(
-                                    delay: 1.5,
-                                    child: Text(
-                                      "New",
-                                      style: AppThemes.homeGridNewText,
-                                    )),
-                              ),
-                            ),
+      width: msize.width,
+      height: msize.height * 0.25,
+      child: ListView.builder(
+        itemCount: availableShoes.length,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          ShoeModel model = availableShoes[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DetailsView(),
+                  ));
+            },
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              width: msize.width * 0.5,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 4,
+                    child: FadeAnimation(
+                      delay: 1,
+                      child: Container(
+                        width: msize.width / 13,
+                        height: msize.height / 10,
+                        color: Colors.red,
+                        child: RotatedBox(
+                          quarterTurns: -1,
+                          child: Center(
+                            child: FadeAnimation(
+                                delay: 1.5,
+                                child: Text(
+                                  "New",
+                                  style: AppThemes.homeGridNewText,
+                                )),
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 0,
-                        right: 5,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_border,
-                            color: AppConstantsColor.darkTextColor,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 50,
-                        child: FadeAnimation(
-                          delay: 1.5,
-                          child: RotationTransition(
-                            turns: const AlwaysStoppedAnimation(-20 / 360),
-                            child: Hero(
-                              tag: model.model,
-                              child: Image(
-                                image: AssetImage(model.imgAddress),
-                                width: msize.width * 0.3,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        child: FadeAnimation(
-                          delay: 2,
-                          child: Text(
-                            "${model.name} ${model.model}",
-                            style: AppThemes.homeGridNameAndModel,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        child: FadeAnimation(
-                            delay: 2.2,
-                            child: Text(
-                              "\$${model.price.toStringAsFixed(2)}",
-                              style: AppThemes.homeGridPrice,
-                            )),
-                      )
-                    ],
+                    ),
                   ),
-                );
-              },
+                  Positioned(
+                    top: 0,
+                    right: 5,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite_border,
+                        color: AppConstantsColor.darkTextColor,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 50,
+                    child: FadeAnimation(
+                      delay: 1.5,
+                      child: RotationTransition(
+                        turns: const AlwaysStoppedAnimation(-20 / 360),
+                        child: Hero(
+                          tag: model.model,
+                          child: Image(
+                            image: AssetImage(model.imgAddress),
+                            width: msize.width * 0.3,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 30,
+                    child: FadeAnimation(
+                      delay: 2,
+                      child: Text(
+                        "${model.name} ${model.model}",
+                        style: AppThemes.homeGridNameAndModel,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    child: FadeAnimation(
+                        delay: 2.2,
+                        child: Text(
+                          "\$${model.price.toStringAsFixed(2)}",
+                          style: AppThemes.homeGridPrice,
+                        )),
+                  )
+                ],
+              ),
             ),
           );
+        },
+      ),
+    );
   }
 
   Padding _moreTextandIcon() {
@@ -206,7 +215,13 @@ class _HomeViewState extends State<HomeView> {
             itemBuilder: (context, index) {
               ShoeModel model = availableShoes[index];
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DetailsView(),
+                      ));
+                },
                 child: Container(
                   margin: EdgeInsets.symmetric(
                       horizontal: msize.height * 0.01,

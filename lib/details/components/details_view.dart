@@ -16,7 +16,7 @@ class DetailsView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: AppConstantsColor.backgroundColor,
+        backgroundColor: Colors.black,
         appBar: const CustomeAppBar(),
         body: SizedBox(
           width: msize.width,
@@ -45,7 +45,26 @@ class DetailsView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    Positioned(
+                      top: 100,
+                      left: 30,
+                      child: Hero(
+                        tag: isComeFromMoreSection
+                            ? model.model
+                            : model.imgAddress,
+                        child: RotationTransition(
+                          turns: const AlwaysStoppedAnimation(-25 / 360),
+                          child: SizedBox(
+                            width: msize.width / 1.3,
+                            height: msize.height / 4.3,
+                            child: Image(
+                              image: AssetImage(model.imgAddress),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )

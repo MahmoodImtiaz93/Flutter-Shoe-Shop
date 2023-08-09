@@ -299,8 +299,9 @@ class _HomeViewState extends State<HomeView> {
                               child: SizedBox(
                                 width: 250,
                                 height: 230,
-                                child:
-                                    Image(image: AssetImage(model.imgAddress)),
+                                child: Image(
+                                  image: AssetImage(model.imgAddress),
+                                ),
                               ),
                             ),
                           ),

@@ -33,9 +33,12 @@ class DetailsView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _nameAndPrice(),
-                    _shoeInfo(msize.width, msize.height)],
+                    _shoeInfo(msize.width, msize.height),
+                    _moreDetailsText(msize.width, msize.height),
+                  ],
                 ),
               )
             ],
@@ -183,6 +186,17 @@ class DetailsView extends StatelessWidget {
         child: Text(
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt laoreet enim, eget sodales ligula semper at. Sed id aliquet eros, nec vestibulum felis. Nunc maximus aliquet aliquam. Quisque eget sapien at velit cursus tincidunt. Duis tempor lacinia erat eget fermentum.",
             style: AppThemes.detailsProductDescriptions),
+      ),
+    );
+  }
+
+  //more details Text Wiget
+  Widget _moreDetailsText(width, height) {
+    return const FadeAnimation(
+      delay: 2,
+      child: Padding(
+        padding: EdgeInsets.only(top: 12.0),
+        child: Text('MORE DETAILS', style: AppThemes.detailsMoreText),
       ),
     );
   }

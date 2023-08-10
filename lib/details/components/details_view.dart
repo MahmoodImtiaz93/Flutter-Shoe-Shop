@@ -144,7 +144,7 @@ class DetailsView extends StatelessWidget {
   }
 
   //Name And Price Text Components
-  nameAndPrice() {
+  _nameAndPrice() {
     return FadeAnimation(
       delay: 1,
       child: Row(
@@ -161,6 +161,20 @@ class DetailsView extends StatelessWidget {
           Text('\$${model.price.toStringAsFixed(2)}',
               style: AppThemes.detailsProductPrice),
         ],
+      ),
+    );
+  }
+
+//About Shoe Text Components
+  shoeInfo(width, height) {
+    return FadeAnimation(
+      delay: 1.5,
+      child: Container(
+        width: width,
+        height: height / 9,
+        child: Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt laoreet enim, eget sodales ligula semper at. Sed id aliquet eros, nec vestibulum felis. Nunc maximus aliquet aliquam. Quisque eget sapien at velit cursus tincidunt. Duis tempor lacinia erat eget fermentum.",
+            style: AppThemes.detailsProductDescriptions),
       ),
     );
   }

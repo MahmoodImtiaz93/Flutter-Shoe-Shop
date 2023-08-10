@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/details/components/app_bar.dart';
 import 'package:shoe_app/model/models.dart';
+import 'package:shoe_app/theme/custom_app_theme.dart';
 import 'package:shoe_app/utils/constants.dart';
 
 class DetailsView extends StatelessWidget {
@@ -138,6 +139,28 @@ class DetailsView extends StatelessWidget {
       ),
       child: Image(
         image: AssetImage(model.imgAddress),
+      ),
+    );
+  }
+
+  //Name And Price Text Components
+  nameAndPrice() {
+    return FadeAnimation(
+      delay: 1,
+      child: Row(
+        children: [
+          Text(
+            model.model,
+            style: TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.bold,
+              color: AppConstantsColor.darkTextColor,
+            ),
+          ),
+          Expanded(child: Container()),
+          Text('\$${model.price.toStringAsFixed(2)}',
+              style: AppThemes.detailsProductPrice),
+        ],
       ),
     );
   }

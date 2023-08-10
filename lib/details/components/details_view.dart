@@ -23,98 +23,106 @@ class DetailsView extends StatelessWidget {
           height: msize.height * 1.1,
           child: Column(
             children: [
-              SizedBox(
-                width: msize.width,
-                height: msize.height / 2.3,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 80,
-                      bottom: 20,
-                      child: FadeAnimation(
-                        delay: 0.5,
-                        child: Container(
-                          width: 1000,
-                          height: msize.height / 2.2,
-                          decoration: BoxDecoration(
-                            color: model.modelColor,
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(1500),
-                              bottomRight: Radius.circular(100),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 100,
-                      left: 30,
-                      child: Hero(
-                        tag: isComeFromMoreSection
-                            ? model.model
-                            : model.imgAddress,
-                        child: RotationTransition(
-                          turns: const AlwaysStoppedAnimation(-25 / 360),
-                          child: SizedBox(
-                            width: msize.width / 1.3,
-                            height: msize.height / 4.3,
-                            child: Image(
-                              image: AssetImage(model.imgAddress),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              FadeAnimation(
-                delay: 1,
-                child: SizedBox(
-                  width: msize.width,
-                  height: msize.height * 0.1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(
-                      4,
-                      (index) => index == 3
-                          ? Container(
-                              padding: const EdgeInsets.all(2),
-                              width: msize.width / 5,
-                              height: msize.height / 14,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                image: DecorationImage(
-                                  image: AssetImage(model.imgAddress),
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.grey.withOpacity(1),
-                                      BlendMode.darken),
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.play_circle_fill,
-                                  color: AppConstantsColor.lightTextColor,
-                                  size: 30,
-                                ),
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 3),
-                              child: roundedImage(msize.width, msize.height),
-                            ),
-                    ),
-                  ),
-                ),
-              ),
+              _topProductImageAndBg(msize),
+              _moreProduct(msize),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _moreProduct(Size msize) {
+    return FadeAnimation(
+              delay: 1,
+              child: SizedBox(
+                width: msize.width,
+                height: msize.height * 0.1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                    4,
+                    (index) => index == 3
+                        ? Container(
+                            padding: const EdgeInsets.all(2),
+                            width: msize.width / 5,
+                            height: msize.height / 14,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              image: DecorationImage(
+                                image: AssetImage(model.imgAddress),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.grey.withOpacity(1),
+                                    BlendMode.darken),
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.play_circle_fill,
+                                color: AppConstantsColor.lightTextColor,
+                                size: 30,
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 3),
+                            child: roundedImage(msize.width, msize.height),
+                          ),
+                  ),
+                ),
+              ),
+            );
+  }
+
+  Widget _topProductImageAndBg(Size msize) {
+    return SizedBox(
+              width: msize.width,
+              height: msize.height / 2.3,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 80,
+                    bottom: 20,
+                    child: FadeAnimation(
+                      delay: 0.5,
+                      child: Container(
+                        width: 1000,
+                        height: msize.height / 2.2,
+                        decoration: BoxDecoration(
+                          color: model.modelColor,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(1500),
+                            bottomRight: Radius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 100,
+                    left: 30,
+                    child: Hero(
+                      tag: isComeFromMoreSection
+                          ? model.model
+                          : model.imgAddress,
+                      child: RotationTransition(
+                        turns: const AlwaysStoppedAnimation(-25 / 360),
+                        child: SizedBox(
+                          width: msize.width / 1.3,
+                          height: msize.height / 4.3,
+                          child: Image(
+                            image: AssetImage(model.imgAddress),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
   }
 
   // Rounded Image Widget About Below method Components

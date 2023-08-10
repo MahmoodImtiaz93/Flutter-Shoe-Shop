@@ -34,9 +34,7 @@ class DetailsView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   children: [
-                    _nameAndPrice(),
-                    _shoeInfo(msize.width, msize.height),
-                    _moreDetailsText(msize.width, msize.height)
+                    
                   ],
                 ),
               )
@@ -153,8 +151,8 @@ class DetailsView extends StatelessWidget {
     );
   }
 
-  //Name And Price Text Widget
-  Widget _nameAndPrice() {
+  //Name And Price Text Components
+  nameAndPrice() {
     return FadeAnimation(
       delay: 1,
       child: Row(
@@ -171,33 +169,6 @@ class DetailsView extends StatelessWidget {
           Text('\$${model.price.toStringAsFixed(2)}',
               style: AppThemes.detailsProductPrice),
         ],
-      ),
-    );
-  }
-
-//About Shoe Text Widget
-  Widget _shoeInfo(width, height) {
-    return FadeAnimation(
-      delay: 1.5,
-      child: Container(
-        width: width,
-        height: height / 9,
-        child: Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt laoreet enim, eget sodales ligula semper at. Sed id aliquet eros, nec vestibulum felis. Nunc maximus aliquet aliquam. Quisque eget sapien at velit cursus tincidunt. Duis tempor lacinia erat eget fermentum.",
-            style: AppThemes.detailsProductDescriptions),
-      ),
-    );
-  }
-
-  //more details Text Widget
-  Widget _moreDetailsText(width, height) {
-    return FadeAnimation(
-      delay: 2,
-      child: Container(
-        padding: EdgeInsets.only(right: 280),
-        height: height / 26,
-        child: FittedBox(
-            child: Text('MORE DETAILS', style: AppThemes.detailsMoreText)),
       ),
     );
   }

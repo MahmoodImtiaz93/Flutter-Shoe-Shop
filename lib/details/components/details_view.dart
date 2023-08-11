@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
+import 'package:shoe_app/data/dummy_data.dart';
 import 'package:shoe_app/details/components/app_bar.dart';
 import 'package:shoe_app/model/models.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
+import 'package:shoe_app/utils/app_methods.dart';
 import 'package:shoe_app/utils/constants.dart';
 
 class DetailsView extends StatefulWidget {
@@ -18,6 +21,7 @@ class DetailsView extends StatefulWidget {
 
 class _DetailsViewState extends State<DetailsView> {
   bool _isCountrySelected = false;
+  int? _isSelectedSize;
   @override
   Widget build(BuildContext context) {
     Size msize = MediaQuery.of(context).size;
@@ -45,7 +49,9 @@ class _DetailsViewState extends State<DetailsView> {
                     _nameAndPrice(),
                     _shoeInfo(msize.width, msize.height),
                     _moreDetailsText(msize.width, msize.height),
-                    _sizeAndCountrySelection(msize)
+                    _sizeAndCountrySelection(msize),
+                    _endSizesAndButton(msize.width, msize.height),
+                    
                   ],
                 ),
               )
@@ -277,4 +283,89 @@ class _DetailsViewState extends State<DetailsView> {
       ),
     );
   }
+
+  _endSizesAndButton(width, height) {
+    return Container(
+      width: width,
+      height: height / 20,
+      child: FadeAnimation(
+        delay: 3,
+        child: Row(
+          children: [
+            Container(
+              width: width / 4.5,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey, width: 1)),
+              child: const Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Try it",
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    RotatedBox(
+                        quarterTurns: -1,
+                        child: FaIcon(FontAwesomeIcons.shoePrints))
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            SizedBox(
+              width: width / 1.5,
+              child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: 4,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (ctx, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSelectedSize = index;
+                        });
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        width: width / 6,
+                        height: height / 13,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: _isSelectedSize == index
+                                  ? Colors.black
+                                  : Colors.grey,
+                              width: 1.5),
+                          color: _isSelectedSize == index
+                              ? Colors.black
+                              : AppConstantsColor.backgroundColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                            sizes[index].toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: _isSelectedSize == index
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
 }

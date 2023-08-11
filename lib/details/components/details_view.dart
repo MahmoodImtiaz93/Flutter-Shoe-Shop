@@ -380,7 +380,7 @@ class _DetailsViewState extends State<DetailsView> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             minWidth: width / 1.2,
             height: height / 20,
-            color: AppConstantsColor.materialButtonColor,
+            color: widget.model.modelColor,
             onPressed: () {
               AppMethods.addToCart(widget.model, context);
             },

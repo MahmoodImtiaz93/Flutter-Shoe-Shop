@@ -5,12 +5,19 @@ import 'package:shoe_app/model/models.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
 import 'package:shoe_app/utils/constants.dart';
 
-class DetailsView extends StatelessWidget {
+class DetailsView extends StatefulWidget {
   const DetailsView(
       {Key? key, required this.model, required this.isComeFromMoreSection})
       : super(key: key);
   final ShoeModel model;
   final bool isComeFromMoreSection;
+
+  @override
+  State<DetailsView> createState() => _DetailsViewState();
+}
+
+class _DetailsViewState extends State<DetailsView> {
+  bool _isCountrySelected = false;
   @override
   Widget build(BuildContext context) {
     Size msize = MediaQuery.of(context).size;
@@ -38,11 +45,79 @@ class DetailsView extends StatelessWidget {
                     _nameAndPrice(),
                     _shoeInfo(msize.width, msize.height),
                     _moreDetailsText(msize.width, msize.height),
+                    _sizeAndCountrySelection(msize)
                   ],
                 ),
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _sizeAndCountrySelection(Size msize) {
+    return FadeAnimation(
+      delay: 2.5,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Size",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppConstantsColor.darkTextColor,
+                  fontSize: 22),
+            ),
+            SizedBox(
+              width: msize.width * 0.35,
+              height: msize.height * 0.05,
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _isCountrySelected = false;
+                      });
+                    },
+                    child: Text(
+                      "Uk",
+                      style: TextStyle(
+                        fontWeight: !_isCountrySelected
+                            ? FontWeight.w400
+                            : FontWeight.bold,
+                        color: !_isCountrySelected
+                            ? Colors.grey
+                            : AppConstantsColor.darkTextColor,
+                        fontSize: 19,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _isCountrySelected = true;
+                      });
+                    },
+                    child: Text(
+                      "USA",
+                      style: TextStyle(
+                        fontWeight: _isCountrySelected
+                            ? FontWeight.w400
+                            : FontWeight.bold,
+                        color: _isCountrySelected
+                            ? Colors.grey
+                            : AppConstantsColor.darkTextColor,
+                        fontSize: 19,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -66,7 +141,7 @@ class DetailsView extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       image: DecorationImage(
-                        image: AssetImage(model.imgAddress),
+                        image: AssetImage(widget.model.imgAddress),
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                             Colors.grey.withOpacity(1), BlendMode.darken),
@@ -107,7 +182,7 @@ class DetailsView extends StatelessWidget {
                 width: 1000,
                 height: msize.height / 2.2,
                 decoration: BoxDecoration(
-                  color: model.modelColor,
+                  color: widget.model.modelColor,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(1500),
                     bottomRight: Radius.circular(100),
@@ -120,14 +195,16 @@ class DetailsView extends StatelessWidget {
             top: 100,
             left: 30,
             child: Hero(
-              tag: isComeFromMoreSection ? model.model : model.imgAddress,
+              tag: widget.isComeFromMoreSection
+                  ? widget.model.model
+                  : widget.model.imgAddress,
               child: RotationTransition(
                 turns: const AlwaysStoppedAnimation(-25 / 360),
                 child: SizedBox(
                   width: msize.width / 1.3,
                   height: msize.height / 4.3,
                   child: Image(
-                    image: AssetImage(model.imgAddress),
+                    image: AssetImage(widget.model.imgAddress),
                   ),
                 ),
               ),
@@ -149,7 +226,7 @@ class DetailsView extends StatelessWidget {
         color: Colors.grey[300],
       ),
       child: Image(
-        image: AssetImage(model.imgAddress),
+        image: AssetImage(widget.model.imgAddress),
       ),
     );
   }
@@ -161,7 +238,7 @@ class DetailsView extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            model.model,
+            widget.model.model,
             style: TextStyle(
               fontSize: 21,
               fontWeight: FontWeight.bold,
@@ -169,7 +246,7 @@ class DetailsView extends StatelessWidget {
             ),
           ),
           Expanded(child: Container()),
-          Text('\$${model.price.toStringAsFixed(2)}',
+          Text('\$${widget.model.price.toStringAsFixed(2)}',
               style: AppThemes.detailsProductPrice),
         ],
       ),

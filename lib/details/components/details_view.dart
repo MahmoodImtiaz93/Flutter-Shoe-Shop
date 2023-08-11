@@ -51,7 +51,7 @@ class _DetailsViewState extends State<DetailsView> {
                     _moreDetailsText(msize.width, msize.height),
                     _sizeAndCountrySelection(msize),
                     _endSizesAndButton(msize.width, msize.height),
-                    
+                    _materialButton(msize.width, msize.height)
                   ],
                 ),
               )
@@ -222,7 +222,7 @@ class _DetailsViewState extends State<DetailsView> {
   }
 
   // Rounded Image Widget About Below method Components
-  roundedImage(width, height) {
+  Widget roundedImage(width, height) {
     return Container(
       padding: const EdgeInsets.all(2),
       width: width / 5,
@@ -284,7 +284,7 @@ class _DetailsViewState extends State<DetailsView> {
     );
   }
 
-  _endSizesAndButton(width, height) {
+  Widget _endSizesAndButton(width, height) {
     return Container(
       width: width,
       height: height / 20,
@@ -367,5 +367,30 @@ class _DetailsViewState extends State<DetailsView> {
     );
   }
 
-
+//button
+  Widget _materialButton(width, height) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: FadeAnimation(
+          delay: 3.5,
+          child: MaterialButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            minWidth: width / 1.2,
+            height: height / 20,
+            color: AppConstantsColor.materialButtonColor,
+            onPressed: () {
+              AppMethods.addToCart(widget.model, context);
+            },
+            child: Text(
+              "ADD TO BAG",
+              style: TextStyle(color: AppConstantsColor.lightTextColor),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

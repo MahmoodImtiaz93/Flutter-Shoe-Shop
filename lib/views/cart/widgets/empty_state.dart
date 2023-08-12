@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
 
+
+// When cart is empty this state will show
 class EmptyState extends StatelessWidget {
   const EmptyState({Key? key}) : super(key: key);
 

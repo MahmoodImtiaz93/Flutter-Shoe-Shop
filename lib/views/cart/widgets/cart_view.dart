@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_app/utils/constants.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -10,6 +11,8 @@ class CartView extends StatefulWidget {
 class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: AppConstantsColor.backgroundColor,
+    );
   }
 }

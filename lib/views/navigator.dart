@@ -2,6 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shoe_app/utils/constants.dart';
+import 'package:shoe_app/views/cart/widgets/cart_view.dart';
 import 'package:shoe_app/views/view.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -17,9 +18,7 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   List<Widget> _screens = [
     HomeView(),
-    Container(
-      color: Colors.yellow,
-    ),
+    CartView(),
     Container(
       color: Colors.deepPurpleAccent,
     ),

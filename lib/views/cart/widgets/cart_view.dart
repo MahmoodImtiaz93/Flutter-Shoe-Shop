@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/data/dummy_data.dart';
+import 'package:shoe_app/model/models.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
 import 'package:shoe_app/utils/constants.dart';
 import 'package:shoe_app/views/cart/widgets/empty_state.dart';
@@ -27,7 +28,64 @@ class _CartViewState extends State<CartView> {
             height: height,
             child: Column(
               children: [
-                _cartAppBar(width: width, height: height, lengthOfCartItems: lengthOfCartItems)
+                _cartAppBar(
+                    width: width,
+                    height: height,
+                    lengthOfCartItems: lengthOfCartItems),
+                Container(
+                  width: width,
+                  height: height * 0.8,
+                  color: Colors.red,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      ShoeModel currentCartItem = itemsOnBag[index];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        width: width,
+                        height: height * 0.2,
+                        color: Colors.pinkAccent,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: width * 0.4,
+                              color: Colors.yellow,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(20),
+                                    width: width * 0.36,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.grey[350],
+                                    ),
+                                  ),
+                                   Positioned(
+                            right: 2,
+                            bottom: 15,
+                            child: RotationTransition(
+                              turns: AlwaysStoppedAnimation(-40 / 360),
+                              child: SizedBox(
+                                width: 140,
+                                height: 140,
+                                child: Image(
+                                  image: AssetImage(
+                                    currentCartItem.imgAddress,
+                                  ),
+                                ),
+                              ),
+                            ))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
               ],
             )),
       ),

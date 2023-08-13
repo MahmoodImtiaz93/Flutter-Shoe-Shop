@@ -32,26 +32,23 @@ class _CartViewState extends State<CartView> {
                     width: width,
                     height: height,
                     lengthOfCartItems: lengthOfCartItems),
-                Container(
+                SizedBox(
                   width: width,
                   height: height * 0.8,
-                  color: Colors.red,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: 10,
+                    itemCount: itemsOnBag.length,
                     itemBuilder: (context, index) {
                       ShoeModel currentCartItem = itemsOnBag[index];
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         width: width,
                         height: height * 0.2,
-                        color: Colors.pinkAccent,
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: width * 0.4,
-                              color: Colors.yellow,
                               child: Stack(
                                 children: [
                                   Container(
@@ -59,27 +56,100 @@ class _CartViewState extends State<CartView> {
                                     width: width * 0.36,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
-                                      color: Colors.grey[350],
+                                      color: currentCartItem.modelColor
+                                          .withOpacity(0.9),
                                     ),
                                   ),
-                                   Positioned(
-                            right: 2,
-                            bottom: 15,
-                            child: RotationTransition(
-                              turns: AlwaysStoppedAnimation(-40 / 360),
-                              child: SizedBox(
-                                width: 140,
-                                height: 140,
-                                child: Image(
-                                  image: AssetImage(
-                                    currentCartItem.imgAddress,
-                                  ),
-                                ),
-                              ),
-                            ))
+                                  Positioned(
+                                      right: 2,
+                                      bottom: 15,
+                                      child: RotationTransition(
+                                        turns:
+                                            AlwaysStoppedAnimation(-40 / 360),
+                                        child: SizedBox(
+                                          width: 140,
+                                          height: 140,
+                                          child: Image(
+                                            image: AssetImage(
+                                              currentCartItem.imgAddress,
+                                            ),
+                                          ),
+                                        ),
+                                      ))
                                 ],
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              width: 14,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  currentCartItem.model,
+                                  style: AppThemes.bagProductModel,
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text("\$${currentCartItem.price}",
+                                    style: AppThemes.bagProductPrice),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.grey[300],
+                                        ),
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.remove,
+                                          size: 15,
+                                        )),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("1",
+                                        style: AppThemes.bagProductNumOfShoe),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.grey[300],
+                                        ),
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.add,
+                                          size: 15,
+                                        )),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       );

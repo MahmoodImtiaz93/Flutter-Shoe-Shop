@@ -51,7 +51,7 @@ class _DetailsViewState extends State<DetailsView> {
                     _moreDetailsText(msize.width, msize.height),
                     _sizeAndCountrySelection(msize),
                     _endSizesAndButton(msize.width, msize.height),
-                    _materialButton(msize.width, msize.height)
+                    materialButton(msize.width, msize.height)
                   ],
                 ),
               )
@@ -368,7 +368,7 @@ class _DetailsViewState extends State<DetailsView> {
   }
 
 //button
-  Widget _materialButton(width, height) {
+  Widget  materialButton(width, height) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(

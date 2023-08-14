@@ -3,7 +3,10 @@ import 'package:shoe_app/animation/fade_animation.dart';
 import 'package:shoe_app/data/dummy_data.dart';
 import 'package:shoe_app/model/models.dart';
 import 'package:shoe_app/theme/custom_app_theme.dart';
+import 'package:shoe_app/utils/app_methods.dart';
 import 'package:shoe_app/utils/constants.dart';
+
+import 'package:shoe_app/details/components/details_view.dart';
 import 'package:shoe_app/views/cart/widgets/empty_state.dart';
 
 class CartView extends StatefulWidget {
@@ -32,7 +35,14 @@ class _CartViewState extends State<CartView> {
                     width: width,
                     height: height,
                     lengthOfCartItems: lengthOfCartItems),
-                _mainProductList(width, height)
+                itemsOnBag.isEmpty
+                    ? EmptyState()
+                    : Column(
+                        children: [
+                          _mainProductList(width, height),
+                          bottomInfo(width, height),
+                        ],
+                      )
               ],
             )),
       ),
@@ -41,130 +51,172 @@ class _CartViewState extends State<CartView> {
 
   Widget _mainProductList(double width, double height) {
     return SizedBox(
-                width: width,
-                height: height * 0.8,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: itemsOnBag.length,
-                  itemBuilder: (context, index) {
-                    ShoeModel currentCartItem = itemsOnBag[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 4),
-                      width: width,
-                      height: height * 0.2,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.4,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.all(20),
-                                  width: width * 0.36,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: currentCartItem.modelColor
-                                        .withOpacity(0.9),
-                                  ),
-                                ),
-                                Positioned(
-                                    right: 2,
-                                    bottom: 15,
-                                    child: RotationTransition(
-                                      turns:
-                                          AlwaysStoppedAnimation(-40 / 360),
-                                      child: SizedBox(
-                                        width: 140,
-                                        height: 140,
-                                        child: Image(
-                                          image: AssetImage(
-                                            currentCartItem.imgAddress,
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                currentCartItem.model,
-                                style: AppThemes.bagProductModel,
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Text("\$${currentCartItem.price}",
-                                  style: AppThemes.bagProductPrice),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        color: Colors.grey[300],
-                                      ),
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.remove,
-                                        size: 15,
-                                      )),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("1",
-                                      style: AppThemes.bagProductNumOfShoe),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        color: Colors.grey[300],
-                                      ),
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.add,
-                                        size: 15,
-                                      )),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+      width: width,
+      height: height * 0.6,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemCount: itemsOnBag.length,
+        itemBuilder: (context, index) {
+          ShoeModel currentCartItem = itemsOnBag[index];
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            width: width,
+            height: height * 0.2,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: width * 0.4,
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(20),
+                        width: width * 0.36,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: currentCartItem.modelColor.withOpacity(0.9),
+                        ),
                       ),
-                    );
-                  },
+                      Positioned(
+                          right: 2,
+                          bottom: 15,
+                          child: RotationTransition(
+                            turns: AlwaysStoppedAnimation(-40 / 360),
+                            child: SizedBox(
+                              width: 140,
+                              height: 140,
+                              child: Image(
+                                image: AssetImage(
+                                  currentCartItem.imgAddress,
+                                ),
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
-              );
+                const SizedBox(
+                  width: 14,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentCartItem.model,
+                      style: AppThemes.bagProductModel,
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text("\$${currentCartItem.price}",
+                        style: AppThemes.bagProductPrice),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {});
+                          },
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey[300],
+                            ),
+                            child: Center(
+                                child: Icon(
+                              Icons.remove,
+                              size: 15,
+                            )),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("1", style: AppThemes.bagProductNumOfShoe),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey[300],
+                            ),
+                            child: Center(
+                                child: Icon(
+                              Icons.add,
+                              size: 15,
+                            )),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
+}
+
+Widget bottomInfo(width, height) {
+  return Container(
+    margin: EdgeInsets.only(top: 10.0),
+    width: width,
+    height: height / 7,
+    child: Column(
+      children: [
+        FadeAnimation(
+          delay: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("TOTAL", style: AppThemes.bagTotalPrice),
+              Text("\$${AppMethods.sumOfItemsOnBag()}",
+                  style: AppThemes.bagSumOfItemOnBag),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: FadeAnimation(
+                delay: 3.5,
+                child: MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  minWidth: width / 1.2,
+                  height: height / 20,
+                  color: AppConstantsColor.materialButtonColor,
+                  onPressed: () {},
+                  child: Text(
+                    "Next",
+                    style: TextStyle(color: AppConstantsColor.lightTextColor),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    ),
+  );
 }
 
 class _cartAppBar extends StatelessWidget {

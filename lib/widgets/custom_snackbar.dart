@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 SnackBar successSnackBar() => SnackBar(
       backgroundColor: Colors.green[400],
-      content: const Text('Successfully Added to your bag!'),
+      content: const Text('Successfully Added to your cart!'),
       action: SnackBarAction(
         textColor: Colors.white,
         label: 'Got it',
